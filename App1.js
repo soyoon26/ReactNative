@@ -10,7 +10,7 @@ import {
   View,
 } from "react-native";
 
-export default function App() {
+export default function App1() {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>
