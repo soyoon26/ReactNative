@@ -20,7 +20,7 @@ export default function Header() {
       }}
     >
       {/* 자동 조절방법, View 사용시 라이브러리 사용 react-native-iphone-x-helper 업데이트 불가*/}
-      <Text style={{ fontSize: 22, fontWeight: "bold" }}>Header</Text>
+      <Text style={{ fontSize: 22, fontWeight: "bold" }}>친구</Text>
       <View style={{ flexDirection: "row" }}>
         <IconButton name="search-outline" />
         <IconButton name="person-add-outline" />

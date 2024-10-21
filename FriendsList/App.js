@@ -1,14 +1,26 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
 import Header from "./src/Header";
-import { SafeAreaView } from "react-native-web";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import MyProfile from "./src/MyProfile";
+import { myProfile } from "./src/data";
+import Margin from "./src/Margin";
 
 export default function App() {
   return (
-    <SafeAreaView style={styles.container}>
-      <Header />
-    </SafeAreaView>
-    // 탭바가 끊겨보일 수 있음
+    <SafeAreaProvider>
+      <SafeAreaView
+        style={styles.container}
+        edges={["right", "bottom", "left"]}
+      >
+        <Header />
+        <Margin height={10} />
+        <MyProfile
+          uri={myProfile.uri}
+          name={myProfile.name}
+          introduction={myProfile.introduction}
+        />
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
 
