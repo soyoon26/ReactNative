@@ -30,6 +30,11 @@ export default function App() {
     setAlbumTitle,
     addAlbum,
     resetAlbumTitle,
+    isDropdownOpen,
+    openDropdown,
+    closeDropdown,
+    albums,
+    selectAlbum,
   } = useGallery();
   const onPressOpenGallery = () => {
     pickImage();
@@ -56,6 +61,18 @@ export default function App() {
     closeModal();
   };
 
+  const onPressHeader = () => {
+    if (isDropdownOpen) {
+      closeDropdown();
+    } else {
+      openDropdown();
+    }
+  };
+
+  const onPressAlbum = (album) => {
+    selectAlbum(album);
+    closeDropdown();
+  };
   const renderItem = ({ item: { id, uri }, index }) => {
     if (id === -1) {
       return (
@@ -87,8 +104,12 @@ export default function App() {
     <SafeAreaView style={styles.container}>
       {/* 앨범 드롭다운, 추가 버튼 */}
       <MyDropDownPicker
-        selectedAlbumTitle={selectedAlbum.title}
+        onPressHeader={onPressHeader}
+        selectedAlbum={selectedAlbum}
         onPressAddAlbum={onPressAddAlbum}
+        isDropdownOpen={isDropdownOpen}
+        albums={albums}
+        onPressAlbum={onPressAlbum}
       />
       {/* 앨범 추가 모달 */}
       <TextInputModal
@@ -103,6 +124,7 @@ export default function App() {
         data={imagesWithAddButton}
         renderItem={renderItem}
         numColumns={3}
+        style={{ zIndex: -1 }}
       />
     </SafeAreaView>
   );

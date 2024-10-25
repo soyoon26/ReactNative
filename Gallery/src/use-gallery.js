@@ -10,6 +10,7 @@ export default useGallery = () => {
   const [albums, setAlbums] = useState([defaultAlbum]);
   const [modalVisible, setModalVisible] = useState(false);
   const [albumTitle, setAlbumTitle] = useState("");
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -23,6 +24,7 @@ export default useGallery = () => {
       const newImage = {
         id: lastId + 1,
         uri: result.assets[0].uri,
+        albumId: selectedAlbum.id,
       };
       setImages([...images, newImage]);
     }
@@ -44,6 +46,10 @@ export default useGallery = () => {
     setModalVisible(true);
   };
   const closeModal = () => setModalVisible(false);
+  const openDropdown = () => {
+    setIsDropdownOpen(true);
+  };
+  const closeDropdown = () => setIsDropdownOpen(false);
   const addAlbum = () => {
     const lastId = albums.length === 0 ? 0 : albums[albums.length - 1].id;
     const newAlbum = {
@@ -53,9 +59,16 @@ export default useGallery = () => {
     setAlbums([...albums, newAlbum]);
   };
 
+  const selectAlbum = (album) => {
+    setSelectedAlbum(album);
+  };
+
   const resetAlbumTitle = () => setAlbumTitle("");
 
-  const imagesWithAddButton = [...images, { id: -1, uri: "" }];
+  const filteredImages = images.filter(
+    (image) => image.albumId === selectedAlbum.id
+  );
+  const imagesWithAddButton = [...filteredImages, { id: -1, uri: "" }];
   //   그냥 차지하는게 중요
   return {
     imagesWithAddButton,
@@ -69,5 +82,10 @@ export default useGallery = () => {
     setAlbumTitle,
     addAlbum,
     resetAlbumTitle,
+    isDropdownOpen,
+    openDropdown,
+    closeDropdown,
+    albums,
+    selectAlbum,
   };
 };
