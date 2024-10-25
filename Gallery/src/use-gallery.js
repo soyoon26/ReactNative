@@ -1,8 +1,16 @@
 import { useState } from "react";
 import * as ImagePicker from "expo-image-picker";
 import { Alert } from "react-native";
+
+const defaultAlbum = { id: 1, title: "기본" };
+
 export default useGallery = () => {
   const [images, setImages] = useState([]);
+  const [selectedAlbum, setSelectedAlbum] = useState(defaultAlbum);
+  const [albums, setAlbums] = useState([defaultAlbum]);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [albumTitle, setAlbumTitle] = useState("");
+
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -32,7 +40,34 @@ export default useGallery = () => {
     ]);
   };
 
+  const openModal = () => {
+    setModalVisible(true);
+  };
+  const closeModal = () => setModalVisible(false);
+  const addAlbum = () => {
+    const lastId = albums.length === 0 ? 0 : albums[albums.length - 1].id;
+    const newAlbum = {
+      id: lastId + 1,
+      title: albumTitle,
+    };
+    setAlbums([...albums, newAlbum]);
+  };
+
+  const resetAlbumTitle = () => setAlbumTitle("");
+
   const imagesWithAddButton = [...images, { id: -1, uri: "" }];
   //   그냥 차지하는게 중요
-  return { images, imagesWithAddButton, pickImage, deleteImage };
+  return {
+    imagesWithAddButton,
+    pickImage,
+    deleteImage,
+    selectedAlbum,
+    modalVisible,
+    openModal,
+    closeModal,
+    albumTitle,
+    setAlbumTitle,
+    addAlbum,
+    resetAlbumTitle,
+  };
 };
