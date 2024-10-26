@@ -14,6 +14,7 @@ import useGallery from "./src/use-gallery";
 import MyDropDownPicker from "./src/MyDropDownPicker";
 import TextInputModal from "./src/TextInputModal";
 import { useEffect } from "react";
+import BigImgModal from "./src/BigImgModal";
 
 export default function App() {
   const width = Dimensions.get("screen").width;

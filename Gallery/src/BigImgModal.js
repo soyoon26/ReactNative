@@ -10,19 +10,27 @@ import {
 import React from "react";
 
 const ArrowButton = ({ icon, onPress, disabled }) => {
-  <TouchableOpacity
-    disabled={disabled}
-    onPress={onPress}
-    style={{
-      alignItems: "center",
-      paddingHorizontal: 20,
-      height: "100%",
-    }}
-  >
-    <Text style={{ fontSize: 20, color: disabled ? "transparent" : "black" }}>
-      {icon}
-    </Text>
-  </TouchableOpacity>;
+  return (
+    <TouchableOpacity
+      disabled={disabled}
+      onPress={onPress}
+      style={{
+        alignItems: "center",
+        paddingHorizontal: 20,
+        fontSize: 20,
+      }}
+    >
+      <Text
+        style={{
+          fontSize: 20,
+          alignItems: "center",
+          color: disabled ? "transparent" : "black",
+        }}
+      >
+        {icon}
+      </Text>
+    </TouchableOpacity>
+  );
 };
 
 export default ({
@@ -32,6 +40,7 @@ export default ({
   onPressRightArrow,
   showPreviousArrow,
   showNextArrow,
+  selectedImage,
 }) => {
   return (
     <Modal animationType="fade" transparent={true} visible={bigImgModalVisible}>
@@ -55,6 +64,7 @@ export default ({
               disabled={!showPreviousArrow}
             />
           )}
+
           {/* 이미지 */}
           <Pressable>
             <Image
