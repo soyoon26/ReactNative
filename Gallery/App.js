@@ -35,6 +35,7 @@ export default function App() {
     closeDropdown,
     albums,
     selectAlbum,
+    deleteAlbum,
   } = useGallery();
   const onPressOpenGallery = () => {
     pickImage();
@@ -73,6 +74,11 @@ export default function App() {
     selectAlbum(album);
     closeDropdown();
   };
+
+  const onLongPressAlbum = (albumId) => {
+    deleteAlbum(albumId);
+  };
+
   const renderItem = ({ item: { id, uri }, index }) => {
     if (id === -1) {
       return (
@@ -110,6 +116,7 @@ export default function App() {
         isDropdownOpen={isDropdownOpen}
         albums={albums}
         onPressAlbum={onPressAlbum}
+        onLongPressAlbum={onLongPressAlbum}
       />
       {/* 앨범 추가 모달 */}
       <TextInputModal

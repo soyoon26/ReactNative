@@ -12,6 +12,7 @@ export default ({
   albums,
   onPressAlbum,
   selectedAlbum,
+  onLongPressAlbum,
 }) => {
   return (
     <View>
@@ -62,7 +63,9 @@ export default ({
             const isSelectedAlbum = album.id === selectedAlbum.id;
             return (
               <TouchableOpacity
+                activeOpacity={1}
                 onPress={() => onPressAlbum(album)}
+                onLongPress={() => onLongPressAlbum(album.id)}
                 key={`album-${index}`}
                 style={{
                   paddingVertical: 12,
