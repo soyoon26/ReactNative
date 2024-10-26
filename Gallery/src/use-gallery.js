@@ -7,8 +7,10 @@ const defaultAlbum = { id: 1, title: "기본" };
 export default useGallery = () => {
   const [images, setImages] = useState([]);
   const [selectedAlbum, setSelectedAlbum] = useState(defaultAlbum);
+  const [selectedImage, setSelectedImage] = useState(null);
   const [albums, setAlbums] = useState([defaultAlbum]);
-  const [modalVisible, setModalVisible] = useState(false);
+  const [bigImgModalVisible, setBigImgModalVisible] = useState(false);
+  const [textInputModalVisible, setTextInputModalVisible] = useState(false);
   const [albumTitle, setAlbumTitle] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -42,10 +44,16 @@ export default useGallery = () => {
     ]);
   };
 
-  const openModal = () => {
-    setModalVisible(true);
+  const openTextInputModal = () => {
+    setTextInputModalVisible(true);
   };
-  const closeModal = () => setModalVisible(false);
+  const closeTextInputModal = () => setTextInputModalVisible(false);
+
+  const openBigImgModal = () => {
+    setBigImgModalVisible(true);
+  };
+  const closeBigImgModal = () => setBigImgModalVisible(false);
+
   const openDropdown = () => {
     setIsDropdownOpen(true);
   };
@@ -63,6 +71,9 @@ export default useGallery = () => {
 
   const selectAlbum = (album) => {
     setSelectedAlbum(album);
+  };
+  const selectImage = (image) => {
+    setSelectedImage(image);
   };
 
   const deleteAlbum = (albumId) => {
@@ -95,9 +106,9 @@ export default useGallery = () => {
     pickImage,
     deleteImage,
     selectedAlbum,
-    modalVisible,
-    openModal,
-    closeModal,
+    textInputModalVisible,
+    openTextInputModal,
+    closeTextInputModal,
     albumTitle,
     setAlbumTitle,
     addAlbum,
@@ -108,5 +119,10 @@ export default useGallery = () => {
     albums,
     selectAlbum,
     deleteAlbum,
+    bigImgModalVisible,
+    openBigImgModal,
+    closeBigImgModal,
+    selectImage,
+    selectedImage,
   };
 };

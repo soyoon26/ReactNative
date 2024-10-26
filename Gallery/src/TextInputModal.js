@@ -10,14 +10,18 @@ import {
 import React from "react";
 
 export default ({
-  modalVisible,
+  textInputModalVisible,
   albumTitle,
   setAlbumTitle,
   onSubmitEditing,
   onPressBackdrop,
 }) => {
   return (
-    <Modal animationType="fade" transparent={true} visible={modalVisible}>
+    <Modal
+      animationType="fade"
+      transparent={true}
+      visible={textInputModalVisible}
+    >
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={{ flex: 1 }}

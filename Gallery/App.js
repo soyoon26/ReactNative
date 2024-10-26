@@ -23,9 +23,9 @@ export default function App() {
     pickImage,
     deleteImage,
     selectedAlbum,
-    modalVisible,
-    openModal,
-    closeModal,
+    textInputModalVisible,
+    openTextInputModal,
+    closeTextInputModal,
     albumTitle,
     setAlbumTitle,
     addAlbum,
@@ -36,6 +36,11 @@ export default function App() {
     albums,
     selectAlbum,
     deleteAlbum,
+    bigImgModalVisible,
+    openBigImgModal,
+    closeBigImgModal,
+    selectImage,
+    selectedImage,
   } = useGallery();
   const onPressOpenGallery = () => {
     pickImage();
@@ -43,7 +48,7 @@ export default function App() {
   const onLongPressImage = (imageId) => deleteImage(imageId);
   const onPressAddAlbum = () => {
     console.log("왜2");
-    openModal();
+    openTextInputModal();
   };
   useEffect(() => {
     console.log("앱 실행됨");
@@ -54,12 +59,15 @@ export default function App() {
     // 1. 앨범 타이틀 추가
     addAlbum();
     // 2. 모달 닫기 & TextInput의 value 초기화
-    closeModal();
+    closeTextInputModal();
     resetAlbumTitle();
   };
 
-  const onPressBackdrop = () => {
-    closeModal();
+  const onPressTextInputBackdrop = () => {
+    closeTextInputModal();
+  };
+  const onPressBigImgBackdrop = () => {
+    closeBigImgModal();
   };
 
   const onPressHeader = () => {
@@ -79,7 +87,13 @@ export default function App() {
     deleteAlbum(albumId);
   };
 
-  const renderItem = ({ item: { id, uri }, index }) => {
+  const onPressImage = (image) => {
+    selectImage(image);
+    openBigImgModal();
+  };
+
+  const renderItem = ({ item: image, index }) => {
+    const { id, uri } = image;
     if (id === -1) {
       return (
         <TouchableOpacity
@@ -98,7 +112,10 @@ export default function App() {
     }
 
     return (
-      <TouchableOpacity onLongPress={() => onLongPressImage(id)}>
+      <TouchableOpacity
+        onPress={() => onPressImage(image)}
+        onLongPress={() => onLongPressImage(image.id)}
+      >
         <Image
           source={{ uri }}
           style={{ width: columnSize, height: columnSize }}
@@ -120,12 +137,21 @@ export default function App() {
       />
       {/* 앨범 추가 모달 */}
       <TextInputModal
-        modalVisible={modalVisible}
+        textInputModalVisible={textInputModalVisible}
         albumTitle={albumTitle}
         setAlbumTitle={setAlbumTitle}
         onSubmitEditing={onSubmitEditing}
-        onPressBackdrop={onPressBackdrop}
+        onPressBackdrop={onPressTextInputBackdrop}
       />
+
+      {/* 이미지 크게 보는 Modal */}
+
+      <BigImgModal
+        bigImgModalVisible={bigImgModalVisible}
+        onPressBackdrop={onPressBigImgBackdrop}
+        selectedImage={selectedImage}
+      />
+
       {/* 이미지 리스트 */}
       <FlatList
         data={imagesWithAddButton}
