@@ -9,6 +9,10 @@ import TabA from "./src/TabA";
 import TabB from "./src/TabB";
 import { Ionicons } from "@expo/vector-icons";
 import BottomTabNavigator from "./src/BottomTabNavigator";
+import Typography from "./src/components/Typography";
+import { View } from "react-native";
+import LocalImages from "./src/components/LocalImages";
+import RemotedImage from "./src/components/RemotedImage";
 const Stack = createNativeStackNavigator();
 const BottomTab = createBottomTabNavigator();
 // export default function App() {
@@ -26,13 +30,37 @@ const BottomTab = createBottomTabNavigator();
 //   );
 // }
 
+// export default function App() {
+//   return (
+//     <NavigationContainer>
+//       <Stack.Navigator>
+//         <Stack.Screen name={"NestedBottomTab"} component={BottomTabNavigator} />
+//         <Stack.Screen name="ScreenB" component={ScreenB} />
+//       </Stack.Navigator>
+//     </NavigationContainer>
+//   );
+// }
+
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name={"NestedBottomTab"} component={BottomTabNavigator} />
-        <Stack.Screen name="ScreenB" component={ScreenB} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <View>
+      <Typography color="red" fontSize={20}>
+        이것은
+        <Typography color="green" fontSize={40}>
+          텍스트
+        </Typography>
+        입니다.
+      </Typography>
+      <LocalImages
+        localAsset={require("./assets/favicon.png")}
+        width={50}
+        height={50}
+      />
+      <RemotedImage
+        url={"https://d3ihz389yobwks.cloudfront.net/1708438488164oWS18.jpg"}
+        width={200}
+        height={100}
+      />
+    </View>
   );
 }
